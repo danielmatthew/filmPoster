@@ -4,14 +4,17 @@
 	var URL = 'http://api.themoviedb.org/3/';
 	var API = '20c37a7bb085a194a8781df8dd193ac1';
 
-	var baseURL,
-		size;
+	var baseURL = localStorage.getItem('url'),
+		size = localStorage.getItem('size');
 
 	window.addEventListener('load', windowLoadHandler, false);
 
 	function windowLoadHandler() {
 		addEventListeners();
 		getConfig();
+		//getFilmID('Pitch Perfect');
+		// search('Crimson Tide');
+		getFilmTitles();
 	}
 
 	function addEventListeners() {
@@ -19,14 +22,49 @@
 	}
 
 	function getConfig() {
-		ajax(URL + 'configuration?api_key=' + API, loadConfig);
+		if (!localStorage.getItem('url')){
+			ajax(URL + 'configuration?api_key=' + API, loadConfig);			
+		}
 	}
 
 	function loadConfig(content) {
 		console.log(content);
 
-		baseURL = content['images']['base_url'];
-		size = content['images']['poster_sizes'][3];
+		var baseURL = content['images']['base_url'];
+		var size = content['images']['poster_sizes'][3];
+
+		localStorage.setItem('url', baseURL);
+		localStorage.setItem('size', size);
+	}
+
+	// Extracts film titles from element IDs
+	function getFilmTitles() {
+		// Search document for all poster elements
+		var posters = document.getElementsByClassName('poster');
+		
+		// Get id from each poster element
+		for (var i = 0; i < posters.length; i++) {
+			search(posters[i].id);
+		}
+	}
+
+	function search(filmTitle) {
+		ajax(URL + 'search/movie?query=' + encodeURI(filmTitle) + '&api_key=' + API, function(content){
+			console.log(content['results'][0]['poster_path']);
+			var filmID = content['results'][0]['id'];
+			var filmPosterPath = content['results'][0]['poster_path'];
+
+			// Build Poster URL
+			var imgPath = baseURL + size + filmPosterPath;
+	
+			drawPosterNew(imgPath);
+		});
+	}
+
+	function getFilmID(filmTitle) {
+		ajax(URL + 'search/movie?query=' + filmTitle + '&api_key=' + API, function(content){
+			console.log(content);
+		});
 	}
 
 	function getPoster() {
@@ -41,8 +79,13 @@
 		img.setAttribute('src', baseURL + size + imgPath);
 
 		posterDiv.appendChild(img);
+	}
 
-		console.log(img);
+	function drawPosterNew(path) {
+		var posterDiv = document.getElementById('poster');
+		var img = document.createElement('img');
+		img.setAttribute('src', path);
+		posterDiv.appendChild(img);
 	}
 
 	// AJAX utility
