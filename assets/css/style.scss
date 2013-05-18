@@ -7,7 +7,6 @@ html {
 }
 
 body {
-  width: 90%;
   margin: 0 auto;
 }
 
@@ -30,28 +29,7 @@ button {
 	text-align: center;
 	
 	img {
-		-webkit-box-shadow: 0 0 5px rgba(0,0,0,0.6);
-	     		box-shadow: 0 0 5px rgba(0,0,0,0.6);
+		-webkit-box-shadow: inset 0 -1px 0 rgba(255,255,255,1);
+	     		box-shadow: inset 0 -1px 0 rgba(255,255,255,1);
 	}
-} 
-@media only screen and (min-device-width : 320px) and (max-device-width : 480px) {
-  
-  /* Styles for mobile */
-
-}
-
-@media only screen and (min-device-width : 768px) and (max-device-width : 1024px) {
-
-  /* Styles for tablet */
-
-}
-
-@media only screen and (-webkit-min-device-pixel-ratio: 1.5) {
-
-  /* Don't forget your Retina CSS! */
-  
-  body {
-    background-size: 72px 72px;
-  }
-
 }
