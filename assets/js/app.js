@@ -19,7 +19,7 @@
 
     function getConfig() {
         if (!localStorage.getItem('url')){
-            ajax(URL + 'configuration?api_key=' + API, loadConfig);       
+            ajax(URL + 'configuration?api_key=' + API, loadConfig);
         }
     }
 
@@ -50,6 +50,7 @@
     function getPoster(content, poster) {
         var filmPosterPath = content['results'][0]['poster_path'];
         var imgPath = baseURL + size + filmPosterPath;
+        localStorage.setItem('path', imgPath);
         outputPoster(imgPath, poster);
     }
 
@@ -63,8 +64,8 @@
     function ajax(url, callback) {
         var xhr = new XMLHttpRequest();
         xhr.onreadystatechange = function() {
-            if (xhr.readyState == 4) {
-                if ((xhr.status >= 200 && xhr.status < 300) || xhr.status == 304) {
+            if (xhr.readyState === 4) {
+                if ((xhr.status >= 200 && xhr.status < 300) || xhr.status === 304) {
                     callback(JSON.parse(xhr.responseText));
                     console.log("Request to " + url + " succeeded");
                 }

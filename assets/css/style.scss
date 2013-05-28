@@ -1,5 +1,3 @@
-/* Write your CSS! */
-
 html {
   height: 100%;
   background: #ecf0f1;
@@ -15,7 +13,7 @@ button {
 	display: block;
 	margin: 1em auto;
 	width: 50%;
-	
+
 	background: #3498db;
 	border-radius: 4px;
 	color: #fff;
@@ -24,12 +22,17 @@ button {
 	-webkit-appearance: none;
 }
 
-#poster {
-	margin: 1em auto;
-	text-align: center;
-	
+#gallery {
+
+}
+
+#gallery > article {
+	width: 33vw;
+}
+
+.poster {
 	img {
-		-webkit-box-shadow: inset 0 -1px 0 rgba(255,255,255,1);
-	     		box-shadow: inset 0 -1px 0 rgba(255,255,255,1);
+		max-width: 100%;
+		display: block;
 	}
 }
