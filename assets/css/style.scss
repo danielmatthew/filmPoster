@@ -23,14 +23,19 @@ button {
 }
 
 #gallery {
-
-}
-
-#gallery > article {
-	width: 33vw;
+    // -webkit-columns: 4;
+    display: flex;
+    display: -webkit-flex;
+    -webkit-flex-flow: row wrap;
+    -webkit-justify-content: space-around;
 }
 
 .poster {
+    -webkit-flex-grow: 0;
+    -webkit-flex-shrink: 1;
+    -webkit-flex-basis: auto;
+    margin-bottom: 2.5%;
+    width: 23%;
 	img {
 		max-width: 100%;
 		display: block;
